@@ -16,7 +16,7 @@ We have choosen the following core for the following reasons:
 
 
 | Core | Configuration | Number of Gates | Core Synthesized Size |
-|-----------------------|--------|---------------|---------------|---------------|
+|-----------------------|--------|---------------|---------------|
 | [Rocket-Chip](https://github.com/mabrains/rocket-chip) | - | 1000 | 10 mm^2 |
 
 
