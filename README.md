@@ -19,6 +19,8 @@ We have choosen the following core for the following reasons:
 |-----------------------|--------|--------|---------------|---------------|
 | [Rocket-Chip](https://github.com/mabrains/rocket-chip) | class DefaultRV32Config extends Config(new WithRV32 ++ new DefaultConfig) | [RTL](cores/rocket-chip/freechips.rocketchip.system.DefaultRV32Config.v) | 1000 | 10 mm^2 |
 | [RVsoc](https://www.arch.cs.titech.ac.jp/wk/rvsoc/doku.php) | Updated code to make it FPGA independant | [RTL](cores/RVsoc/src/rvcorem.v) | 1000 | 10 mm^2 |
+| [Birisc (ultra embedded)](https://github.com/ultraembedded/biriscv) | ... | [RTL](https://github.com/ultraembedded/biriscv/tree/master/src/core) | 0.6 mm^2 | 62394
+
 
 
 ## Caravel Usage Documentation
