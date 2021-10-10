@@ -15,7 +15,7 @@ The following cores were investigated:
 We have choosen the following core for the following reasons:
 
 
-| Core | Configuration | RTL Link | Number of Gates | Core Synthesized Size |
+| Core | Configuration | RTL Link | Number of Gates (No Memory) | Core Synthesized Size (No Memory) |
 |-----------------------|--------|--------|---------------|---------------|
 | [Rocket-Chip](https://github.com/mabrains/rocket-chip) | class DefaultRV32Config extends Config(new WithRV32 ++ new DefaultConfig) | [RTL](cores/rocket-chip/freechips.rocketchip.system.DefaultRV32Config.v) | 22335 | 0.21 mm^2 |
 | [RVsoc](https://www.arch.cs.titech.ac.jp/wk/rvsoc/doku.php) | Updated code to make it FPGA independant | [RTL](cores/RVsoc/src/rvcorem.v) | 32656 | 0.28 mm^2 |
