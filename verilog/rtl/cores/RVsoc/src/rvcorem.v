@@ -364,14 +364,15 @@ module m_RVCoreM(CLK, RST_X, w_stall, r_halt, w_insn_addr, w_data_addr, w_insn_d
                     end
                 end
 
-                default : begin
+                /*default : begin
                     r_tkn       <= 0;
                     r_jmp_pc    <= 0;
                     $write("UNKNOWN OPCODE DETECT!!\n");
                     $write("TC:%08d PC:%08x OPCODE=%7b, ir=%8x\n", mtime[31:0], pc, r_opcode, r_ir);
                     $write("Simulation Stopped...\n");
                     $finish();
-                end
+                end*/
+
            endcase
         end
     end
@@ -947,20 +948,21 @@ module m_alu_im(CLK, RST_X, w_le, w_in1, w_in2, w_funct3, w_funct7, r_rslt, w_bu
             if(w_funct3 == `FUNCT3_DIV___ || w_funct3 == `FUNCT3_DIVU__) begin
                 if(r_rslt == w_div_rslt[31:0]) begin
                 end
-                else begin
+                /*else begin
                     $write("CAUTION! DIV FAIL! %x/%x true:%x unit:%x %x\n",
                             w_in1, w_in2, r_rslt, w_div_rslt[63:32], w_div_rslt[31:0]);
                     $finish();
-                end
+                end */
+
             end
             if(w_funct3 == `FUNCT3_REM___ || w_funct3 == `FUNCT3_REMU__) begin
                 if(r_rslt == w_div_rslt[63:32]) begin
                 end
-                else begin
+                /*else begin
                     $write("CAUTION! REM FAIL! %x/%x true:%x unit:%x %x\n",
                             w_in1, w_in2, r_rslt, w_div_rslt[63:32], w_div_rslt[31:0]);
                     $finish();
-                end
+                end*/
             end
         end
     end
@@ -1140,11 +1142,11 @@ module m_alu_i (w_in1, w_in2, w_funct3, w_funct7, r_rslt);
                             end
             `FUNCT3_OR____ : r_rslt = w_in1 | w_in2;
             `FUNCT3_AND___ : r_rslt = w_in1 & w_in2;
-            default        : begin
+            /*default        : begin
                 $write("ILLEGAL INSTRUCTION! in alu_i\n");
                 r_rslt = 0;
                 $finish();
-            end
+            end*/
         endcase
     end
 endmodule
