@@ -20,7 +20,7 @@ We have choosen the following core for the following reasons:
 | [Rocket-Chip](https://github.com/mabrains/rocket-chip) | class DefaultRV32Config extends Config(new WithRV32 ++ new DefaultConfig) | [RTL](cores/rocket-chip/freechips.rocketchip.system.DefaultRV32Config.v) | error | error |
 | [RVsoc](https://www.arch.cs.titech.ac.jp/wk/rvsoc/doku.php) | Updated code to make it FPGA independant | [RTL](cores/RVsoc/src/rvcorem.v) | error | error |
 | [Birisc (ultra embedded)](https://github.com/ultraembedded/biriscv) | ... | [RTL](https://github.com/ultraembedded/biriscv/tree/master/src/core) | 62394 | 0.6 mm^2
-| [openpiton](https://github.com/PrincetonUniversity/openpiton) | ... | [RTL](https://github.com/PrincetonUniversity/openpiton/tree/openpiton/piton/design/chip) | error | error
+| [openpiton](https://github.com/PrincetonUniversity/openpiton) | ... | [RTL](https://l.messenger.com/l.php?u=https%3A%2F%2Fgithub.com%2FPrincetonUniversity%2Fopenpiton&h=AT15QlUP0A4rmnadu6og_yxWPS7677Yumxn2sDuqmPmHnntZOj0EAPaYHdTnab7ATOzxOWD5_NgQmwbfJh91_7P0xQTryFF_crN1aGwEwEjm9MP7ebTKmeCQXWosyhJaMn0I7g) | error | error
 
 
 
