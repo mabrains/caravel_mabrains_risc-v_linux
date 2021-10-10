@@ -1,0 +1,225 @@
+#!/bin/sh -f
+
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y vim htop build-essential git cmake autoconf automake flex bison texinfo libx11-dev libxaw7-dev libreadline-dev m4 \
+	tcl-dev tk-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev tcsh csh libx11-dev libcairo2-dev libncurses-dev \
+	python3 python3-pip libgsl-dev libgtk-3-dev clang gawk libffi-dev graphviz xdot pkg-config python3 libboost-system-dev \
+	libboost-python-dev libboost-filesystem-dev zlib1g-dev gengetopt help2man groff pod2pdf libtool octave liboctave-dev epstool transfig paraview \
+	libhdf5-dev libvtk7-dev libboost-all-dev libcgal-dev libtinyxml-dev qtbase5-dev libvtk7-qt-dev libopenmpi-dev \
+	xterm graphicsmagick ghostscript libtinyxml-dev libhdf5-serial-dev libcgal-dev vtk7 \
+	cython3 build-essential cython3 python3-numpy python3-matplotlib python3-scipy python3-h5py meld
+sudo apt install -y tigervnc-common tigervnc-viewer python3-pip gnome-system-tools ffmpeg
+sudo apt-get -y install gcc g++ gfortran make cmake bison flex libfl-dev libfftw3-dev libsuitesparse-dev libblas-dev liblapack-dev libtool autoconf automake git 
+	
+sudo apt install -y uidmap apt-transport-https     ca-certificates     curl     gnupg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-ce-rootless-extras
+
+sudo snap install slack --classic
+sudo snap install code --classic
+sudo snap install zoom-client
+
+export SCRIPT_PATH=$PWD
+
+mkdir -p temp
+cd temp
+
+export START_PWD=$PWD
+echo "Installing dependencies."
+
+echo "## Install Verilator"
+git clone https://github.com/verilator/verilator
+unset VERILATOR_ROOT
+cd verilator
+git pull        # Make sure git repository is up-to-date
+git checkout v4.202
+autoconf        # Create ./configure script
+./configure     # Configure and create Makefile
+make -j$(nproc)         # Build Verilator itself
+sudo make install
+cd $START_PWD
+
+echo "## Installing tools"
+echo "# Installing ngspice"
+wget -O ngspice-34.tar.gz https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/34/ngspice-34.tar.gz
+tar zxvf ngspice-34.tar.gz
+cd ngspice-34
+mkdir release
+cd release
+../configure --with-x --enable-xspice --enable-cider --enable-openmp --with-readlines=yes --disable-debug
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+cd ngspice-34
+mkdir build-lib
+cd build-lib
+../configure --with-x --enable-xspice --enable-cider --enable-openmp --disable-debug --with-ngshared
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing ngspice complete."
+echo "# Installing magic"
+git clone https://github.com/RTimothyEdwards/magic.git
+cd magic
+./configure
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing klayout"
+wget https://www.klayout.org/downloads/Ubuntu-20/klayout_0.27.1-1_amd64.deb
+dpkg -i ./klayout_0.27.1-1_amd64.deb
+apt-get install -f -y
+
+echo "# Installing netgen"
+git clone https://github.com/RTimothyEdwards/netgen.git
+cd netgen
+./configure
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing xcircuit"
+git clone https://github.com/RTimothyEdwards/XCircuit.git
+cd XCircuit
+./configure && make -j$(nproc) && sudo make install
+cd $START_PWD
+
+echo "# Install Yoss"
+git clone https://github.com/YosysHQ/yosys.git
+cd yosys
+make config-gcc
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Install graywolf"
+git clone https://github.com/rubund/graywolf.git
+cd graywolf
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing qrouter"
+git clone https://github.com/RTimothyEdwards/qrouter.git
+cd qrouter
+./configure
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing qflow"
+git clone https://github.com/RTimothyEdwards/qflow.git
+cd qflow
+./configure
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing gaw3"
+git clone https://github.com/StefanSchippers/xschem-gaw.git
+cd xschem-gaw
+./configure
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing xschem"
+git clone https://github.com/StefanSchippers/xschem.git
+cd xschem
+./configure
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+echo "# Installing iverilog"
+git clone https://github.com/steveicarus/iverilog.git
+cd iverilog
+./configure
+make
+sudo make install
+cd $START_PWD
+
+echo "## Installing Xyce"
+wget https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-12-12-1.tar.gz
+tar zxvf trilinos-release-12-12-1.tar.gz
+cd  Trilinos-trilinos-release-12-12-1
+mkdir parallel_build
+cd parallel_build
+(
+cat <<'EOF'
+#!/bin/sh
+SRCDIR=..
+ARCHDIR=/opt/trilinos
+FLAGS="-O3 -fPIC"
+cmake \
+-G "Unix Makefiles" \
+-DCMAKE_C_COMPILER=mpicc \
+-DCMAKE_CXX_COMPILER=mpic++ \
+-DCMAKE_Fortran_COMPILER=mpif77 \
+-DCMAKE_CXX_FLAGS="$FLAGS" \
+-DCMAKE_C_FLAGS="$FLAGS" \
+-DCMAKE_Fortran_FLAGS="$FLAGS" \
+-DCMAKE_INSTALL_PREFIX=$ARCHDIR \
+-DCMAKE_MAKE_PROGRAM="make" \
+-DTrilinos_ENABLE_NOX=ON \
+ -DNOX_ENABLE_LOCA=ON \
+-DTrilinos_ENABLE_EpetraExt=ON \
+  -DEpetraExt_BUILD_BTF=ON \
+  -DEpetraExt_BUILD_EXPERIMENTAL=ON \
+  -DEpetraExt_BUILD_GRAPH_REORDERINGS=ON \
+-DTrilinos_ENABLE_TrilinosCouplings=ON \
+-DTrilinos_ENABLE_Ifpack=ON \
+-DTrilinos_ENABLE_Isorropia=ON \
+-DTrilinos_ENABLE_AztecOO=ON \
+-DTrilinos_ENABLE_Belos=ON \
+-DTrilinos_ENABLE_Teuchos=ON \
+  -DTeuchos_ENABLE_COMPLEX=ON \
+-DTrilinos_ENABLE_Amesos=ON \
+ -DAmesos_ENABLE_KLU=ON \
+-DTrilinos_ENABLE_Amesos2=ON \
+ -DAmesos2_ENABLE_KLU2=ON \
+ -DAmesos2_ENABLE_Basker=ON \
+-DTrilinos_ENABLE_Sacado=ON \
+-DTrilinos_ENABLE_Stokhos=ON \
+-DTrilinos_ENABLE_Kokkos=ON \
+-DTrilinos_ENABLE_Zoltan=ON \
+-DTrilinos_ENABLE_ALL_OPTIONAL_PACKAGES=OFF \
+-DTrilinos_ENABLE_CXX11=ON \
+-DTPL_ENABLE_AMD=ON \
+-DAMD_LIBRARY_DIRS="/usr/lib" \
+-DTPL_AMD_INCLUDE_DIRS="/usr/include/suitesparse" \
+-DTPL_ENABLE_BLAS=ON \
+-DTPL_ENABLE_LAPACK=ON \
+-DTPL_ENABLE_MPI=ON \
+$SRCDIR
+EOF
+) > cmake_init.sh
+
+chmod +x cmake_init.sh
+./cmake_init.sh
+make -j$(nproc)
+sudo make install
+cd $START_PWD
+
+git clone https://github.com/Xyce/Xyce.git
+cd Xyce
+./bootstrap
+mkdir build_dir
+cd build_dir
+../configure CXXFLAGS="-O3" ARCHDIR="/opt/trilinos" CPPFLAGS="-I/usr/include/suitesparse" --enable-mpi CXX=mpicxx CC=mpicc F77=mpif77 --enable-stokhos --enable-amesos2 --prefix=/usr/local
+make -j$(nproc)
+sudo make install
+
+
+sudo apt autoremove
+
