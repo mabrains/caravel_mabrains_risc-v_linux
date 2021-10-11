@@ -34,7 +34,6 @@ Refer to [README](docs/source/index.rst) for this sample project documentation.
 Thanke for all the contributions of the Mabrains Interns August Cycle:
 * Mariam Mohamed
 * Rawan Adel
-* Rawan Ramadan
 * Amira Emad
 * Moataz Alaa
 
