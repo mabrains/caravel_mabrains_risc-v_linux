@@ -31,9 +31,7 @@ We have choosen the following core for the following reasons:
 Refer to [README](docs/source/index.rst) for this sample project documentation. 
 
 ## Contributors
-Thanke for all the contributions of the Mabrains Interns August Cycle:
-* Mariam Mohamed
+Thanke for all the contributions of the Mabrains Interns:
 * Rawan Adel
-* Amira Emad
 * Moataz Alaa
 

@@ -1,7 +1,11 @@
 magic
 tech sky130A
 magscale 1 2
+<<<<<<< HEAD
 timestamp 1633957859
+=======
+timestamp 1633939717
+>>>>>>> c033762c81bcc0f5a61b0a1e04c07ef98a45e562
 << locali >>
 rect 239229 456943 239263 457385
 rect 274005 457215 274039 457385
@@ -66799,7 +66803,11 @@ rect 592298 -7622 592382 -7386
 rect 592618 -7622 592650 -7386
 rect -8726 -7654 592650 -7622
 use user_proj_example  mprj
+<<<<<<< HEAD
 timestamp 1633957859
+=======
+timestamp 1633939717
+>>>>>>> c033762c81bcc0f5a61b0a1e04c07ef98a45e562
 transform 1 0 235000 0 1 338000
 box 106 0 179846 120000
 << labels >>
