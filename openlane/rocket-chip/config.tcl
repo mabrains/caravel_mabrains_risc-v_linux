@@ -21,21 +21,24 @@ set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/cores/rocket-chip/freechips.rocketchip.system.DefaultRV32Config.v \
 	$script_dir/../../verilog/rtl/cores/rocket-chip/freechips.rocketchip.system.DefaultRV32Config/plusarg_reader.v"
- 
+set ::env(SDC_FILE) "/../../verilog/rtl/cores/rocket-chip/freechips.rocketchip.system.DefaultRV32Config.sdc"
 
 set ::env(DESIGN_IS_CORE) 0
 
 set ::env(CLOCK_PORT) "clock"
 set ::env(CLOCK_NET) $::env(CLOCK_PORT)
 set ::env(CLOCK_PERIOD) "1"
-
-set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 1000 1000"
-
+#set ::env(FP_PDN_CORE_RING) 1
+set ::env(FP_SIZING) relative
+set ::env(FP_CORE_UTIL) "10"
+#set ::env(DIE_AREA) "0 0 1455 1466"
+#set ::env(DIODE_INSERTION_STRATEGY) 0
+#set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
 set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
-#set ::env(PL_BASIC_PLACEMENT) 1
-#set ::env(PL_TARGET_DENSITY) 0.05
+#set ::env(PL_BASIC_PLACEMENT) 0
+set ::env(PL_TARGET_DENSITY) 0.15
+
 
 
 # Maximum layer used for routing is metal 4.
