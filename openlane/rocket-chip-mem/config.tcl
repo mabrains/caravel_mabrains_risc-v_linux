@@ -15,7 +15,7 @@
 
 set script_dir [file dirname [file normalize [info script]]]
 
-set ::env(DESIGN_NAME) data_arrays_0_0_ext
+set ::env(DESIGN_NAME) tag_array_0_ext
 
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
