@@ -6,6 +6,8 @@
 ## Introduction
 This project is the realization of an Open Source implementation for RISC-V that is linux capable.
 
+NOTE: THIS PROJECT WILL NOT GO INTO MPW3.
+
 ## Cores Investigated
 The following cores were investigated:
 
